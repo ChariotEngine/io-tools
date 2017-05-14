@@ -2,7 +2,7 @@
 name = "chariot_io_tools"
 description = "Chariot helper crate for frequent I/O operations such as reading a byte"
 license = "MIT"
-version = "0.1.2"
+version = "0.1.3"
 authors = ["Taryn Hill <taryn@phrohdoh.com>", "Kevin Fuller <angered.ghandi@gmail.com>"]
 documentation = "https://docs.rs/chariot_io_tools/"
 repository = "https://github.com/ChariotEngine/io-tools"

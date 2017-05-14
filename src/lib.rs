@@ -32,6 +32,7 @@ pub trait WriteExt {
     fn write_u8(&mut self, value: u8) -> io::Result<()>;
     fn write_u16(&mut self, value: u16) -> io::Result<()>;
     fn write_u32(&mut self, value: u32) -> io::Result<()>;
+    fn write_i32(&mut self, value: i32) -> io::Result<()>;
 }
 
 impl<T> WriteExt for T
@@ -47,6 +48,10 @@ impl<T> WriteExt for T
 
     fn write_u32(&mut self, value: u32) -> io::Result<()> {
         WriteBytesExt::write_u32::<LittleEndian>(self, value)
+    }
+
+    fn write_i32(&mut self, value: i32) -> io::Result<()> {
+        WriteBytesExt::write_i32::<LittleEndian>(self, value)
     }
 }
 
@@ -246,5 +251,16 @@ mod tests {
         let v = cursor.into_inner();
         let mut c = ::std::io::Cursor::new(v);
         assert_eq!(147u32, ReadExt::read_u32(&mut c).unwrap());
+    }
+
+    #[test]
+    fn test_write_i32() {
+        let buf = vec![];
+        let mut cursor = ::std::io::Cursor::new(buf);
+        assert!(cursor.write_i32(147i32).is_ok());
+
+        let v = cursor.into_inner();
+        let mut c = ::std::io::Cursor::new(v);
+        assert_eq!(147i32, ReadExt::read_i32(&mut c).unwrap());
     }
 }
